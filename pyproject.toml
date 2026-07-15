@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "angiostress-benchmark"
+version = "0.1.0"
+description = "Deterministic real-data-first benchmark utilities for AngioStress v0.1."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "SeldingerMed" }
+]
+license = { text = "Proprietary" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "tomli>=2; python_version < '3.11'",
+]
+
+[project.scripts]
+angiostress-validate-contract = "benchmark.validate_contract:main"
+angiostress-run-dias-contract = "benchmark.run_dias_contract_full_test:main"
+angiostress-run-cathaction-subset = "benchmark.run_cathaction_contract_subset:main"
+angiostress-run-cathaction-full-tier = "benchmark.run_cathaction_full_tier:main"
+angiostress-run-release-audit = "benchmark.run_release_audit:main"
+angiostress-stage-public-release = "benchmark.stage_public_release:main"
+
+[tool.setuptools]
+packages = ["benchmark"]
+
+[tool.setuptools.package-data]
+benchmark = ["contracts/*.json"]
