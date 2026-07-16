@@ -19,7 +19,7 @@ def test_pyproject_declares_package_metadata_and_dependencies() -> None:
     assert project["requires-python"] == ">=3.9"
     assert project["dependencies"] == []
     assert "dev" in project["optional-dependencies"]
-    assert any(dep.startswith("pytest") for dep in project["optional-dependencies"]["dev"])
+    assert any(dep.startswith("pytest>=") for dep in project["optional-dependencies"]["dev"])
 
 
 def test_pyproject_exposes_existing_benchmark_entrypoints() -> None:

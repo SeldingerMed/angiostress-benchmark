@@ -48,7 +48,14 @@ The package currently uses only the Python standard library at runtime. Developm
 python3 -m pip install '.[dev]'
 ```
 
-Console entry points include `angiostress-validate-contract`, `angiostress-run-release-audit`, and `angiostress-stage-public-release`.
+Console entry points:
+
+- `angiostress-validate-contract`
+- `angiostress-run-dias-contract`
+- `angiostress-run-cathaction-subset`
+- `angiostress-run-cathaction-full-tier`
+- `angiostress-run-release-audit`
+- `angiostress-stage-public-release`
 
 ## Validate The Package
 
