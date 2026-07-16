@@ -34,6 +34,29 @@ All model entries are treated as frozen, off-the-shelf evaluation targets. This 
 - GitHub code and lightweight benchmark package: https://github.com/txmed82/angiostress-benchmark
 - Hugging Face derived benchmark artifacts: https://huggingface.co/datasets/txmedai/angiostress-benchmark
 
+## Install The Package
+
+The benchmark utilities are installable with the standard Python packaging workflow:
+
+```bash
+python3 -m pip install .
+```
+
+The package currently uses only the Python standard library at runtime. Development/test helpers are declared as an optional extra:
+
+```bash
+python3 -m pip install '.[dev]'
+```
+
+Console entry points:
+
+- `angiostress-validate-contract`
+- `angiostress-run-dias-contract`
+- `angiostress-run-cathaction-subset`
+- `angiostress-run-cathaction-full-tier`
+- `angiostress-run-release-audit`
+- `angiostress-stage-public-release`
+
 ## Validate The Package
 
 Run the release audit from the repository root:
