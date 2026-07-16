@@ -46,3 +46,35 @@ jobs:
                   json.load(handle)
               print(f'validated {path}')
           PY
+
+      - name: Run fixture-backed contract validation
+        run: |
+          python benchmark/validate_contract.py \
+            --contract tests/fixtures/ci_contract.json \
+            --output-dir /tmp/angiostress-ci-contract-validation
+          test -s /tmp/angiostress-ci-contract-validation/contract_validation_report.json
+          test -s /tmp/angiostress-ci-contract-validation/metrics_summary.json
+          test -s /tmp/angiostress-ci-contract-validation/validation_summary.md
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          metrics_path = Path('/tmp/angiostress-ci-contract-validation/metrics_summary.json')
+          try:
+              metrics = json.loads(metrics_path.read_text(encoding='utf-8'))
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f'invalid metrics JSON in {metrics_path}: {exc}') from exc
+          expected = {
+              'benchmark_contract_validation_passed': 1.0,
+              'benchmark_contract_core_surface_count': 1.0,
+              'benchmark_contract_synthetic_auxiliary_marked': 1.0,
+          }
+          mismatches = {
+              key: metrics.get(key)
+              for key, expected_value in expected.items()
+              if metrics.get(key) != expected_value
+          }
+          if mismatches:
+              raise SystemExit(f'missing or invalid contract metrics: {mismatches}')
+          print(f"validated fixture-backed contract outputs in {metrics_path.parent}")
+          PY
