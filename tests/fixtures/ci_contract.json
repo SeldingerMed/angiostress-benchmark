@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "angiostress-ci-fixture-contract",
+  "title": "AngioStress CI Fixture Contract",
+  "created_at": "2026-07-16",
+  "claim_boundary": "Lightweight fixture contract used only to exercise CI validation without private datasets.",
+  "benchmark_role": {
+    "core": "A tiny committed fixture exercises contract validation in CI.",
+    "auxiliary": "Synthetic fixtures are used only for regression checks."
+  },
+  "surfaces": [
+    {
+      "surface_id": "ci_fixture_surface",
+      "role": "core",
+      "dataset": "Committed CI fixture",
+      "task": "Validate contract runner against a tiny public fixture",
+      "source_paths": [
+        "tests/fixtures/ci_contract_manifest.json"
+      ],
+      "validation_checks": [
+        {
+          "path": "tests/fixtures/ci_contract_manifest.json",
+          "json_equals": {
+            "sample_count": 2,
+            "metrics.sample_count": 2
+          },
+          "finite_metrics": [
+            "metrics.dice"
+          ]
+        }
+      ]
+    },
+    {
+      "surface_id": "ci_synthetic_auxiliary_fixture",
+      "role": "auxiliary",
+      "dataset": "Committed synthetic CI fixture",
+      "task": "Keep synthetic fixtures explicitly auxiliary in CI summaries",
+      "source_paths": [
+        "tests/fixtures/ci_contract_manifest.json"
+      ],
+      "validation_checks": [
+        {
+          "path": "tests/fixtures/ci_contract_manifest.json",
+          "finite_metrics": [
+            "metrics.dice"
+          ]
+        }
+      ]
+    }
+  ],
+  "validation_output": {
+    "run_id": "run-ci-fixture-contract-validation",
+    "output_dir": "tests/fixtures/ci_contract_outputs",
+    "required_files": [
+      "contract_validation_report.json",
+      "metrics_summary.json",
+      "validation_summary.md"
+    ]
+  }
+}
