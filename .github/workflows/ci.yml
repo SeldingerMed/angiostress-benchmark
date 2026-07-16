@@ -60,7 +60,10 @@ jobs:
           from pathlib import Path
 
           metrics_path = Path('/tmp/angiostress-ci-contract-validation/metrics_summary.json')
-          metrics = json.loads(metrics_path.read_text(encoding='utf-8'))
+          try:
+              metrics = json.loads(metrics_path.read_text(encoding='utf-8'))
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f'invalid metrics JSON in {metrics_path}: {exc}') from exc
           assert metrics['benchmark_contract_validation_passed'] == 1.0, metrics
           assert metrics['benchmark_contract_core_surface_count'] == 1.0, metrics
           assert metrics['benchmark_contract_synthetic_auxiliary_marked'] == 1.0, metrics
