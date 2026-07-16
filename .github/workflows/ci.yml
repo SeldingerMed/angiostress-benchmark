@@ -64,8 +64,17 @@ jobs:
               metrics = json.loads(metrics_path.read_text(encoding='utf-8'))
           except json.JSONDecodeError as exc:
               raise SystemExit(f'invalid metrics JSON in {metrics_path}: {exc}') from exc
-          assert metrics['benchmark_contract_validation_passed'] == 1.0, metrics
-          assert metrics['benchmark_contract_core_surface_count'] == 1.0, metrics
-          assert metrics['benchmark_contract_synthetic_auxiliary_marked'] == 1.0, metrics
+          expected = {
+              'benchmark_contract_validation_passed': 1.0,
+              'benchmark_contract_core_surface_count': 1.0,
+              'benchmark_contract_synthetic_auxiliary_marked': 1.0,
+          }
+          mismatches = {
+              key: metrics.get(key)
+              for key, expected_value in expected.items()
+              if metrics.get(key) != expected_value
+          }
+          if mismatches:
+              raise SystemExit(f'missing or invalid contract metrics: {mismatches}')
           print(f"validated fixture-backed contract outputs in {metrics_path.parent}")
           PY
