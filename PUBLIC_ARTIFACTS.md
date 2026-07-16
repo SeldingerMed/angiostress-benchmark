@@ -3,7 +3,7 @@
 This repository contains the lightweight AngioStress v0.1 benchmark code,
 contracts, manifests, metrics, and validation outputs.
 
-- GitHub code repository: https://github.com/txmed82/angiostress-benchmark
+- GitHub code repository: https://github.com/SeldingerMed/angiostress-benchmark
 - Hugging Face dataset artifact: https://huggingface.co/datasets/txmedai/angiostress-benchmark
 
 The Hugging Face dataset contains browseable metadata and archive payloads for

@@ -31,7 +31,7 @@ All model entries are treated as frozen, off-the-shelf evaluation targets. This 
 
 ## Public Artifacts
 
-- GitHub code and lightweight benchmark package: https://github.com/txmed82/angiostress-benchmark
+- GitHub code and lightweight benchmark package: https://github.com/SeldingerMed/angiostress-benchmark
 - Hugging Face derived benchmark artifacts: https://huggingface.co/datasets/txmedai/angiostress-benchmark
 
 ## Install The Package
